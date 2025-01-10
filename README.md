@@ -1,1 +1,1 @@
-# unity-sniper-bot
+# mizuri-sniper-bot on Starknet
