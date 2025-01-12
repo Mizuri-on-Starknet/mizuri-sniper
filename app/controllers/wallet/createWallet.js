@@ -223,6 +223,8 @@ const deployWallet = async (ctx, index) => {
     return await ctx.reply("✅ wallet deployed successfully");
   } catch (error) {
     console.log(error);
+
+    // checks if accoubnt is already deployed
     if (
       error
         .toString()
