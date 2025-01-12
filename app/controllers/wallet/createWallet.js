@@ -167,7 +167,9 @@ export const exportWallet = async (ctx) => {
             "wallet" +
             (i + 1) +
             " " +
-            `<span class="tg-spoiler">${decrypt(e.privateKey)}</span>\n\n`
+            `<span class="tg-spoiler">${decrypt(
+              decrypt(e.privateKey)
+            )}</span>\n\n`
           );
         })
         .toString()
