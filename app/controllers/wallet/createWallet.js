@@ -16,6 +16,7 @@ import { fetchUser } from "../fetchWallets.js";
 import { err, globals, log } from "../../utils/globals.js";
 import { fastFastClose, fastKeyboard } from "../../utils/keyboards.js";
 import { findUser } from "../../database/users.js";
+import { Context } from "telegraf";
 
 // connect provider
 const provider = new RpcProvider({ nodeUrl: `${globals.infuraSepolia}` });
@@ -65,11 +66,9 @@ export const createWallet12 = async (telegramId) => {
 };
 
 function padHexTo66(hexString) {
-  // Check if the string starts with '0x'
   if (!hexString.startsWith("0x")) {
     throw new Error("Invalid hex string: must start with '0x'");
   }
-
   // Remove '0x' prefix for length calculation and padding
   const withoutPrefix = hexString.slice(2);
 
@@ -85,11 +84,8 @@ function padHexTo66(hexString) {
 }
 
 export const createSingleWallet = async () => {
-  // Generate public and private key pair.
   const privateKeyAX = stark.randomAddress();
-  // console.log("AX_ACCOUNT_PRIVATE_KEY=", privateKeyAX);
   const starkKeyPubAX = ec.starkCurve.getStarkKey(privateKeyAX);
-  // console.log("AX_ACCOUNT_PUBLIC_KEY=", starkKeyPubAX);
 
   // Calculate future address of the ArgentX account
   const axSigner = new CairoCustomEnum({ Starknet: { pubkey: starkKeyPubAX } });
@@ -116,23 +112,26 @@ export const createSingleWallet = async () => {
 };
 
 // console.log(createSingleWallet());
+// console.log(
+//   decrypt(
+//     "0e723cf9fbc9a3740d74af412eeaee19ae2747d09cac678ff4f0e150cd6b17d761f102193ab9359669ae27fffe4bdebb29008a199fca6c0226e0c157bcf9862c8e8c30951929b21b2fe150989b0270b0"
+//   )
+// );
 
 // await deploy_argent_wallet(
 //   [
 //     "0",
-//     "630559855065581259481863973171974753312440719803087763120308473516701250843",
+//     "2713379871962457008925379088717995525816017762476197014436743569789491495838",
 //     "1"
 //   ],
-//   "0x5dc36c20072be64a5009f822dd0000cf1e7382a212fea2fc114d6540d1b6d7",
-//   "0x206f98c703c5898bff49a35d292b9877d593afdf8dcbb4c77670bae9d36b74b",
-//   "0x164e25ced881df0c290953415b6d4ecad6adf30a1ec7391f281afe39e57f51b"
+//   "0x070e5a6703b5b9406e2e047aab55de4d9dc64d3e4cca851e70a3f5dae129d1a1",
+//   "0x7657feec9bb233ec1037188d8fb00bcd208da16e93b1a9904571087edca8b75",
+//   "0x5ffb7f51a3357d9e8b47515aa2f51ddb04685cda7e34adc528e6a1cb86a439e"
 // );
 
 export const firstTimeCreate12 = async () => {
   const wallet1 = await createSingleWallet();
   const wallet2 = await createSingleWallet();
-
-  // const address3 = wallet3.address;
 
   const wallets = [
     {
@@ -147,7 +146,6 @@ export const firstTimeCreate12 = async () => {
       AXConstructorCallData: wallet2.AXConstructorCallData,
       initialWalletAddress: wallet2.initialWalletAddress
     }
-    // { address: address3, privateKey: encrypt(privateKey3) }
   ];
   return wallets;
 };
@@ -208,3 +206,37 @@ export const createThree = async () => {
   ];
   return wallets;
 };
+
+const deployWallet = async (ctx, index) => {
+  try {
+    const username = ctx.from.id;
+    const user = await findUser(username);
+    const user_wallet = user.wallets[index];
+
+    await deploy_argent_wallet(
+      user_wallet.AXConstructorCallData,
+      user_wallet.address,
+      decrypt(decrypt(user_wallet.privateKey)),
+      user_wallet.initialWalletAddress
+    );
+
+    return await ctx.reply("✅ wallet deployed successfully");
+  } catch (error) {
+    console.log(error);
+    if (
+      error
+        .toString()
+        .includes(
+          "0x0000000000000000000000000000000000000000000000000000000000000000."
+        )
+    ) {
+      await ctx.reply("🙂 Account already deployed 🚀");
+    } else await ctx.reply("😑 Deployment failed, something went wrong ");
+  }
+};
+
+export const deployWallet1 = async (ctx) => deployWallet(ctx, 0);
+export const deployWallet2 = async (ctx) => deployWallet(ctx, 1);
+export const deployWallet3 = async (ctx) => deployWallet(ctx, 2);
+export const deployWallet4 = async (ctx) => deployWallet(ctx, 3);
+export const deployWallet5 = async (ctx) => deployWallet(ctx, 4);

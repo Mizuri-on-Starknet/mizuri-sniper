@@ -31,6 +31,12 @@ export const inlineKeyboard = async (telegramId) => {
         `selectWallet:w${index + 1}`
       )
     ),
+    wallets.wallets.map((wallet, index) =>
+      Markup.button.callback(
+        `Deploy w${index + 1} 🚀`,
+        `deployWallet:w${index + 1}`
+      )
+    ),
     [
       // [
       //   (Markup.button.callback(

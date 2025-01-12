@@ -192,6 +192,7 @@ export const pendingSettings = async () => {
         withdrawState[username].fromWalletAddress = defaultWalletAddress;
         withdrawState[username].encrypted_mnemonnics =
           defaultEncryptedPrivateKey;
+        withdrawState[username].main_token = currentUserForTransfer.main_token;
 
         await ctx.replyWithHTML(
           `<b> hold on 🦍 </b>\n<i>Are you sure you want to withdraw ${

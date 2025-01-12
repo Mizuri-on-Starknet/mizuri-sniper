@@ -123,7 +123,7 @@ const selectGas = async (ctx, gasIndex) => {
     const updatedKeyboard = await updateGasButtons(`g${gasIndex}`, username);
     await ctx.editMessageReplyMarkup(updatedKeyboard.reply_markup);
   } catch (error) {
-    console.log("--- trying to update current wallet ----");
+    console.log("--- trying to update current gas ----");
     err(error);
   }
 };

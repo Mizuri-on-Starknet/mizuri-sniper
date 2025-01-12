@@ -433,7 +433,7 @@ const encapsulatedSniperFunction = async (bot) => {
 
                         await bot.sendMessage(
                           currentUser.username,
-                          `💳️ Wallet ${snipe?.walletIndex}\n${snipe.walletAddress}\n\n| Snipe <a href="https://explorer.bit-rock.io/tx/${tookTrade.hash}">Transaction</a> 🔫 Successful 🟢 |\n\n🪅 CA: ($${snipe?.tokenTicker})\n${snipe.tokenContractAddress}`,
+                          `💳️ Wallet ${snipe?.walletIndex}\n${snipe.walletAddress}\n\n| Snipe <a href="https://sepolia.voyager.online/tx/${tookTrade.hash}">Transaction</a> 🔫 Successful 🟢 |\n\n🪅 CA: ($${snipe?.tokenTicker})\n${snipe.tokenContractAddress}`,
                           { parse_mode: "HTML" }
                         );
 

@@ -72,7 +72,14 @@ import { sell, sendPnl } from "./robot/sell.js";
 import express from "express";
 import { preSnipeAction } from "./controllers/preTrade.js";
 import { openSnipes } from "./utils/keyboards.js";
-import { exportWallet } from "./controllers/wallet/createWallet.js";
+import {
+  deployWallet1,
+  deployWallet2,
+  deployWallet3,
+  deployWallet4,
+  deployWallet5,
+  exportWallet
+} from "./controllers/wallet/createWallet.js";
 import { generateImage } from "./utils/generateImage.js";
 import { sniperNew } from "./robot/snipe.js";
 
@@ -198,6 +205,11 @@ bot.action("resetWallet:2", resetWallet2);
 bot.action("resetWallet:3", resetWallet3);
 bot.action("resetWallet:4", resetWallet4);
 bot.action("resetWallet:5", resetWallet5);
+bot.action("deployWallet:w1", deployWallet1);
+bot.action("deployWallet:w2", deployWallet2);
+bot.action("deployWallet:w3", deployWallet3);
+bot.action("deployWallet:w4", deployWallet4);
+bot.action("deployWallet:w5", deployWallet5);
 bot.action("mainMenu", startHandler);
 bot.action("premiumF", eeditPremium);
 bot.action("buy", buyPrompt);

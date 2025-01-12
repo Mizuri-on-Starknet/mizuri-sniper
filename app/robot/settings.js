@@ -652,19 +652,28 @@ export const yesTransfer = async (ctx) => {
         user.fromWalletAddress,
         user.toWalletAddress,
         user.amount,
-        user.encrypted_mnemonnics
+        user.encrypted_mnemonnics,
+        user.main_token
       );
       await ctx.replyWithHTML(
-        `<b>📤️ Withdrawal successful</b>\n <a href="https://explorer.bit-rock.io/tx/${transaction}">Transaction Hash</a>`
+        `<b>📤️ Withdrawal successful</b>\n <a href="https://sepolia.voyager.online/tx/${transaction}">Transaction Hash</a>`
       );
       delete withdrawState[username];
     }
   } catch (error) {
     log(" ======== error from yesTransfer =========");
     err(error);
-    await ctx.replyWithHTML(
-      `<b>❌ Withdrawal Failed</b> ${error?.error?.message || "😵‍💫"}`
-    );
+
+    if (error.toString().includes("pending")) {
+      await ctx.replyWithHTML(
+        `<b>❌ Withdrawal Failed</b> 
+        deploy wallet first 🚀 then try again`
+      );
+    } else {
+      await ctx.replyWithHTML(
+        `<b>❌ Withdrawal Failed</b> ${error?.error?.message || "😵‍💫"}`
+      );
+    }
   }
 };
 
