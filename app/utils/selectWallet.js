@@ -19,6 +19,7 @@ const inlineKeyboard = async (telegramId) => {
       `selectWallet:w${index + 1}`
     )
   );
+  const gas_type = [0, 1];
 
   return Markup.inlineKeyboard([
     [Markup.button.callback(" SELECT DEFAULT WALLET ", "selectWallet")],
@@ -32,6 +33,16 @@ const inlineKeyboard = async (telegramId) => {
       Markup.button.callback("Active Snipes ", "openPositions"),
       Markup.button.callback("⚙️ Settings ", "settings")
     ],
+    [Markup.button.callback(" SELECT PRIMARY GAS ", "selectGas")],
+
+    gas_type.map((wallet, index) =>
+      Markup.button.callback(
+        `${wallets.main_token == index ? "✅" : ""} ${
+          index == 0 ? "$ETH" : "$STRK"
+        } `,
+        `selectGas:g${index}`
+      )
+    ),
     [Markup.button.webApp(" Help ", "https://apetoken.net")]
   ]);
 };
@@ -71,6 +82,45 @@ const selectWallet = async (ctx, walletIndex) => {
       `w${walletIndex + 1}`,
       username
     );
+    await ctx.editMessageReplyMarkup(updatedKeyboard.reply_markup);
+  } catch (error) {
+    console.log("--- trying to update current wallet ----");
+    err(error);
+  }
+};
+
+const updateGasButtons = async (selectedGas, username) => {
+  const keyboard = await inlineKeyboard(username);
+  keyboard.reply_markup.inline_keyboard.forEach((row) => {
+    row.forEach((button) => {
+      if (
+        button.callback_data &&
+        button.callback_data.startsWith("selectGas:")
+      ) {
+        const gasNumber = button.callback_data.split(":")[1];
+
+        if (gasNumber === selectedGas) {
+          !button.text.includes("✅") && (button.text = "✅ " + button.text);
+        } else {
+          button.text = button.text.replace("✅ ", "");
+        }
+      }
+    });
+  });
+  return keyboard;
+};
+
+const selectGas = async (ctx, gasIndex) => {
+  try {
+    const username = ctx.from.id.toString();
+    const userUnityWallet = (await findUser(username)).wallets;
+    await User.findOneAndUpdate(
+      { username },
+      {
+        main_token: gasIndex
+      }
+    );
+    const updatedKeyboard = await updateGasButtons(`g${gasIndex}`, username);
     await ctx.editMessageReplyMarkup(updatedKeyboard.reply_markup);
   } catch (error) {
     console.log("--- trying to update current wallet ----");
@@ -131,3 +181,5 @@ export const selectWallet2 = async (ctx) => selectWallet(ctx, 1);
 export const selectWallet3 = async (ctx) => selectWallet(ctx, 2);
 export const selectWallet4 = async (ctx) => selectWallet(ctx, 3);
 export const selectWallet5 = async (ctx) => selectWallet(ctx, 4);
+export const selectGas1 = async (ctx) => selectGas(ctx, 0);
+export const selectGas2 = async (ctx) => selectGas(ctx, 1);

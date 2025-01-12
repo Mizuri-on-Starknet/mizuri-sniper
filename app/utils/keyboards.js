@@ -21,6 +21,7 @@ export const inlineKeyboard = async (telegramId) => {
   ]);
   const userDefaultWallet = actions[1];
   const wallets = actions[0];
+  const gas_type = [0, 1];
   return Markup.inlineKeyboard([
     [Markup.button.callback(" SELECT DEFAULT WALLET ", "selectWallet")],
 
@@ -54,6 +55,16 @@ export const inlineKeyboard = async (telegramId) => {
       Markup.button.callback("Active Snipes ", "openPositions"),
       Markup.button.callback("⚙️ Settings ", "settings")
     ],
+    [Markup.button.callback(" SELECT PRIMARY GAS ", "selectGas")],
+
+    gas_type.map((wallet, index) =>
+      Markup.button.callback(
+        `${wallets.main_token == index ? "✅" : ""} ${
+          index == 0 ? "$ETH" : "$STRK"
+        } `,
+        `selectGas:g${index}`
+      )
+    ),
     // [Markup.button.callback(" 🔑 Mnemonics ", "button8")],
 
     [

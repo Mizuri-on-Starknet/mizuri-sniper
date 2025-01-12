@@ -19,8 +19,12 @@ export const startHandler = async (ctx) => {
     const user = await findUser(username);
     const walletAddresses = user.wallets.map((wallet) => wallet.address);
 
-    const balances = await Promise.all(walletAddresses.map(fetchETH));
-    const prices = await Promise.all(balances.map(EthPrice));
+    const balances = await Promise.all(
+      walletAddresses.map((address) => fetchETH(address, user.main_token))
+    );
+    const prices = await Promise.all(
+      balances.map((balance) => EthPrice(balance, user.main_token))
+    );
 
     // log(balances);
     // log(user.wallets);
@@ -30,7 +34,8 @@ export const startHandler = async (ctx) => {
 
 
 🔥 Why Mizuri?  
-- 🤗 <b>100% compatible with ArgentX wallet:</b> Easily export your wallets to ArgentX, no hassle
+- 🤗 <b>100% compatible with ArgentX wallet:</b> created using argentX account ClassHash, Easily export your wallets to ArgentX, no hassle
+- ⛽️ <b>$ETH or $STRK:</b> switch between tokens for gas
 - 🚀 <b>Unmatched Speed:</b> Execute snipes in milliseconds with Mizuri’s cutting-edge algorithms.  
 - 🎯 <b>Pinpoint Accuracy:</b> Strike with surgical precision and never miss an opportunity.  
 - 🍃 Exclusive Mizuri Pro Benefits:  
@@ -45,9 +50,9 @@ export const startHandler = async (ctx) => {
 ` +
       user.wallets
         .map((e, i) => {
-          return `<b>▰ Address ${i + 1}: ▰</b>\nBal: ${balances[i]} STRK $${
-            prices[i]
-          }\n<code>${e.address}</code>\n\n`;
+          return `<b>▰ Address ${i + 1}: ▰</b>\nBal: ${balances[i]} ${
+            user.main_token == 0 ? "$ETH" : "$STRK"
+          } $${prices[i]}\n<code>${e.address}</code>\n\n`;
         })
         .join("");
 

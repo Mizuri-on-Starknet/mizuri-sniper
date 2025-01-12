@@ -1,11 +1,18 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import { eth_address } from "../controllers/fetchBalance.js";
+
 dotenv.config();
 const env = process.env;
 
 export const pro_endpoint = "https://api.geckoterminal.com/api/v2";
 export const chain = "starknet-alpha";
+
+// COINgecko addresses
+const eth_address =
+  "0x49D36570D4e46f48e99674bd3fcc84644DdD6b96F7C741B1562B82f9e004dC7";
+
+const stark_address =
+  "0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d";
 
 // "https://pro-api.coingecko.com/api/v3/onchain";
 
@@ -37,13 +44,11 @@ export const tokenInfo = async (contractAddress) => {
   return response.data.data;
 };
 
-export const EthPrice = async (balance) => {
+export const EthPrice = async (balance, main_token = 0) => {
   if (Number(balance) <= 0) return 0;
-  let contractAddress =
-    "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7" ||
-    eth_address;
+  let contractAddress = main_token == 0 ? eth_address : stark_address;
   const response = await axios.get(
-    `${pro_endpoint}/networks/${chain}/tokens/${contractAddress}`,
+    `${pro_endpoint}/networks/${chain}/tokens/${contractAddress.toLowerCase()}`,
     {
       headers: {
         "x-cg-pro-api-key": env.COINGECKO_API_KEY

@@ -12,6 +12,11 @@ let userSchema = new mongoose.Schema({
     enum: [0, 1],
     default: 0
   },
+  main_token: {
+    type: Number,
+    enum: [0, 1],
+    default: 0
+  },
   buyType: {
     type: Number,
     enum: [0, 1],

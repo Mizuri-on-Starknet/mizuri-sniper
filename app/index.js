@@ -38,6 +38,8 @@ import {
   resetWallet3,
   resetWallet4,
   resetWallet5,
+  selectGas1,
+  selectGas2,
   selectWallet1,
   selectWallet2,
   selectWallet3,
@@ -163,6 +165,8 @@ bot.action("selectWallet:w2", selectWallet2);
 bot.action("selectWallet:w3", selectWallet3);
 bot.action("selectWallet:w4", selectWallet4);
 bot.action("selectWallet:w5", selectWallet5);
+bot.action("selectGas:g0", selectGas1);
+bot.action("selectGas:g1", selectGas2);
 bot.action("resetWallet:1", selectWallet5);
 bot.action("editMinMCap", eeditMinMCap);
 bot.action("editMaxMCap", eeditMaxMCap);
