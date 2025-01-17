@@ -65,7 +65,7 @@ export const createWallet12 = async (telegramId) => {
   return wallets;
 };
 
-function padHexTo66(hexString) {
+export function padHexTo66(hexString) {
   if (!hexString.startsWith("0x")) {
     throw new Error("Invalid hex string: must start with '0x'");
   }

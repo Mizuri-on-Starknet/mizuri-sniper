@@ -144,7 +144,8 @@ export const buyTrade = async (contractAddress, ctx, sell = false) => {
           body.balance,
           tokenDetailEquivalence.brockBalance,
           tokenDetailEquivalence.usdBalance,
-          truncateText(response.data.data.attributes.symbol, 5)
+          truncateText(response.data.data.attributes.symbol, 5),
+          user.main_token
         );
         const sellOption = sellOptions(
           contractAddress,

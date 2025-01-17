@@ -80,7 +80,7 @@ export const buy = async (ctx) => {
         response.attributes.symbol,
         response.attributes.name,
         amountToBuy,
-        currentUser.slippage ? currentUser.slippage : ""
+        currentUser.main_token
       );
 
       log(" === hitting buydb for user -- normal buy ===");

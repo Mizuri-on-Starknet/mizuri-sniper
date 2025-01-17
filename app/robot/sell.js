@@ -78,7 +78,7 @@ export const sell = async (ctx) => {
       const message = await ctx.replyWithHTML(
         `🔘 Submitting Transaction || Wallet ${
           currentUser.defaultAddress + 1
-        } <a href="https://explorer.bit-rock.io/address/${
+        } <a href="https://sepolia.voyager.online/contract/${
           currentUser.walletAddress
         }">${currentUser.walletAddress}</a>`,
         {
@@ -106,13 +106,13 @@ export const sell = async (ctx) => {
       // TODO change snowtrace
 
       await ctx.replyWithHTML(
-        `<b>📝 Transaction Approved || You sold </b> <a href="https://explorer.bit-rock.io/tx/${
+        `<b>📝 Transaction Approved || You sold </b> <a href="https://sepolia.voyager.online/tx/${
           result.hash
         }">${result.amount} $${response.attributes.name} for approx. ${Number(
           result.amountOut
         ).toFixed(2)} $STRK</a> || 💳 Wallet ${
           currentUser.defaultAddress + 1
-        } <a href="https://explorer.bit-rock.io/address/${result.hash}">${
+        } <a href="https://sepolia.voyager.online/contract/${result.hash}">${
           currentUser.walletAddress
         }</a>`,
         {

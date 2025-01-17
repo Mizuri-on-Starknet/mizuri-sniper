@@ -6,19 +6,24 @@ export const txError = async (error, ctx) => {
   if (error.toString().includes("insufficient funds")) {
     err(error);
     await ctx.reply(
-      " ❌❌❌ something went wrong while making your transaction 😵‍💫, please make sure you have enough and extra to cover for gas fees ⛽️ and try again 🚀",
+      " ❌ something went wrong while making your transaction 😵‍💫, please make sure you have enough and extra to cover for gas fees ⛽️ and try again 🚀",
       fastKeyboard
     );
   } else if (error.toString().includes("gas")) {
     err(error);
     await ctx.reply(
-      " ❌❌❌ something went wrong while making your transaction 😵‍💫, please make sure you have enough and extra to cover for gas fees ⛽️ and try again 🚀",
+      " ❌ something went wrong while making your transaction 😵‍💫, please make sure you have enough and extra to cover for gas fees ⛽️ and try again 🚀",
       fastKeyboard
     );
   } else if (error.toString().includes("reverted")) {
     err(error);
     await ctx.reply(
-      " ❌❌❌ something went wrong while making your transaction 😵‍💫, please make sure you have enough and extra to cover for gas fees ⛽️ and try again 🚀",
+      " ❌ something went wrong while making your transaction 😵‍💫, please make sure you have enough and extra to cover for gas fees ⛽️ and try again 🚀",
+      fastKeyboard
+    );
+  } else if (error.toString().includes("Token from balance is too low")) {
+    await ctx.reply(
+      " ❌ Insufficient Balance, please make sure you have enough and extra to cover for gas fees ⛽️ then try again 🚀",
       fastKeyboard
     );
   } else {

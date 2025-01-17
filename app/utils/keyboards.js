@@ -274,7 +274,8 @@ export const buyOptions = (
   tokenBalance,
   brockBalance,
   usdBalance,
-  tokenName
+  tokenName,
+  main_token = 0
 ) =>
   Markup.inlineKeyboard([
     [
@@ -282,25 +283,41 @@ export const buyOptions = (
         `💳 Wallet ${walletIndex + 1} - ${truncateText(
           walletAddress,
           4
-        )} ✅ - Balance ${balanceBrock} $STRK ≡ ${balanceUSD}$`,
+        )} ✅ - Balance ${balanceBrock} $${
+          main_token == 0 ? "ETH" : "STRK"
+        } ≡ ${balanceUSD}$`,
         "nothing"
       )
     ],
     [Markup.button.callback(` --- CA Balance --- `, "nothinng")],
     [
       Markup.button.callback(
-        `📋 Contract Balance ≡ ${tokenBalance} $${tokenName} ≡ ${brockBalance} $STRK ≡ $${usdBalance}`,
+        `📋 Contract Balance ≡ ${tokenBalance} $${tokenName} ≡ ${brockBalance} $$${
+          main_token == 0 ? "ETH" : "STRK"
+        } ≡ $${usdBalance}`,
         "nothinnng"
       )
     ],
     [Markup.button.callback(` --- Your Actions --- `, "nothing")],
     [
-      Markup.button.callback("🎯 Buy 100 $STRK ", "100"),
-      Markup.button.callback("🎯 Buy 500 $STRK ", "500")
+      Markup.button.callback(
+        `🎯 Buy 100 $${main_token == 0 ? "ETH" : "STRK"} `,
+        "100"
+      ),
+      Markup.button.callback(
+        `🎯 Buy 500 $${main_token == 0 ? "ETH" : "STRK"} `,
+        "500"
+      )
     ],
     [
-      Markup.button.callback("🎯 Buy 1000 $STRK ", "1000"),
-      Markup.button.callback("🎯 Buy 1500 $STRK ", "1500")
+      Markup.button.callback(
+        `🎯 Buy 1000 $${main_token == 0 ? "ETH" : "STRK"} `,
+        "1000"
+      ),
+      Markup.button.callback(
+        `🎯 Buy 1500 $${main_token == 0 ? "ETH" : "STRK"} `,
+        "1500"
+      )
     ],
     [
       Markup.button.callback("🎯 Buy X", "buy_custom"),

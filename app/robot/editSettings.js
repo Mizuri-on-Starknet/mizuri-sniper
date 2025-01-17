@@ -262,7 +262,7 @@ const customBuyForSpecificUser = async (username, customValue, ctx) => {
   const message = await ctx.replyWithHTML(
     `🔘 Submitting Transaction || Wallet ${
       currentUser.defaultAddress + 1
-    } <a href="https://explorer.bit-rock.io/address/${
+    } <a href="https://sepolia.voyager.online/contract/${
       currentUser.walletAddress
     }">${currentUser.walletAddress}</a>`,
     {
@@ -278,12 +278,12 @@ const customBuyForSpecificUser = async (username, customValue, ctx) => {
     const result = await useContract(
       state[username].trade.userAddress,
       state[username].trade.contractAddress,
-      decrypt(state[username].trade.encrypted_mnemonics),
+      state[username].trade.encrypted_mnemonics,
       state[username].trade.decimals,
       state[username].trade.ticker,
       state[username].trade.coinName,
       state[username].trade.amount,
-      state[username].trade.slippage
+      state[username].trade.main_token
     );
 
     await buyDB(
@@ -298,13 +298,13 @@ const customBuyForSpecificUser = async (username, customValue, ctx) => {
     await ctx.deleteMessage(message.message_id);
 
     await ctx.replyWithHTML(
-      `<b>📝 Transaction Approved || You bought approx. </b> <a href="https://explorer.bit-rock.io/tx/${
+      `<b>📝 Transaction Approved || You bought approx. </b> <a href="https://sepolia.voyager.online/tx/${
         result.hash
       }">${Number(result.amountOut).toFixed(2)} $${
         state[username].trade.coinName
       } for ${state[username].trade.amount} $STRK</a> || 💳 Wallet ${
         currentUser.defaultAddress + 1
-      } <a href="https://explorer.bit-rock.io/address/${
+      } <a href="https://sepolia.voyager.online/contract/${
         currentUser.walletAddress
       }">${currentUser.walletAddress}</a>`,
       {
@@ -345,7 +345,7 @@ export const customSellForSpecificUser = async (username, customValue, ctx) => {
   const message = await ctx.replyWithHTML(
     `🔘 Submitting Transaction || Wallet ${
       currentUser.defaultAddress + 1
-    } <a href="https://explorer.bit-rock.io/address/${
+    } <a href="https://sepolia.voyager.online/contract/${
       currentUser.walletAddress
     }">${currentUser.walletAddress}</a>`,
     {
@@ -377,7 +377,7 @@ export const customSellForSpecificUser = async (username, customValue, ctx) => {
     await ctx.deleteMessage(message.message_id);
 
     await ctx.replyWithHTML(
-      `<b>📝 Transaction Approved || You sold </b> <a href="https://explorer.bit-rock.io/tx/${
+      `<b>📝 Transaction Approved || You sold </b> <a href="https://sepolia.voyager.online/tx/${
         result.hash
       }">${result.amount} $${
         sellState[username].trade.coinName
@@ -385,7 +385,7 @@ export const customSellForSpecificUser = async (username, customValue, ctx) => {
         2
       )} $STRK</a> || 💳 Wallet ${
         currentUser.defaultAddress + 1
-      } <a href="https://explorer.bit-rock.io/address/${result.hash}">${
+      } <a href="https://sepolia.voyager.online/contract/${result.hash}">${
         currentUser.walletAddress
       }</a>`,
       {
