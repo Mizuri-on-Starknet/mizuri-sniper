@@ -499,7 +499,9 @@ export const buyMessage = (response, body, poolData) =>
 <b>🧢 Market Cap</b>    | $${formatNumber(
     BigInt(Number(response.data.data.attributes.fdv_usd).toFixed(0))
   )}
-<b>⚖️ Taxes</b>               | Ⓑ ${body.buyTax || 0}% ⓢ ${body.sellTax || 0}%
+<b>⚖️ Taxes</b>               | Ⓑ ${body.buyTax || 0}% ⓢ ${
+    body.sellTax || 0
+  }% // Coming soon 
 
 <span class="tg-spoiler">💬 If you want to stay updated 24/7, join our Telegram for more info at  || @mizuri_starknet_bot 💬</span>\n\n`;
 
