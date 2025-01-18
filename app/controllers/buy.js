@@ -21,6 +21,7 @@ import {
   tokenVariantPrice
 } from "../utils/prices.js";
 import { fetchHoneypot } from "./fetchHoneypot.js";
+import { removeLeadingZeros } from "../utils/isWalletValid.js";
 
 dotenv.config();
 const env = process.env;
@@ -30,6 +31,8 @@ export const buyTrade = async (contractAddress, ctx, sell = false) => {
     let username = ctx.from.id.toString();
 
     log(contractAddress);
+
+    contractAddress = removeLeadingZeros(contractAddress);
 
     const asynchronous = await Promise.all([
       findUser(username)
