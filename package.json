@@ -9,9 +9,6 @@
     "start": "node app/index.js",
     "dev": "nodemon app/index.js"
   },
-  "engines": {
-    "node": "18"
-  },
   "dependencies": {
     "@avnu/avnu-sdk": "^3.0.0",
     "@moralisweb3/common-evm-utils": "^2.25.0",
