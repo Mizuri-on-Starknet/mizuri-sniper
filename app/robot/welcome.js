@@ -30,10 +30,8 @@ export const startHandler = async (ctx) => {
     // log(user.wallets);
 
     const welcome =
-      `<b>🎯 Mizuri Sniper Bot - Dominate StarkNet Trading Like a Pro 🚀</b>
+      `<b>🎯 Mizuri Sniper Bot - SEPOLIA</b>
 
-
-🔥 Why Mizuri?  
 - 🤗 <b>100% compatible with ArgentX wallet:</b> Accounts created using argentX account ClassHash
 - ⛽️ <b>$ETH or $STRK:</b> switch between tokens for gas
 - 🚀 <b>Unmatched Speed:</b> 
@@ -44,7 +42,7 @@ export const startHandler = async (ctx) => {
 
  How? ⚙️ Settings > 👑 Premium
 
-❓ Need help? Type <code>/help</code> to get started.
+❓ Need help? Type <code>/help</code>
 
 <b>═ Your Wallets ═</b>
 ` +
