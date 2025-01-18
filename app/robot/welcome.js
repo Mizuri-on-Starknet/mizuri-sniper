@@ -34,19 +34,19 @@ export const startHandler = async (ctx) => {
 
 
 🔥 Why Mizuri?  
-- 🤗 <b>100% compatible with ArgentX wallet:</b> created using argentX account ClassHash, Easily export your wallets to ArgentX, no hassle
+- 🤗 <b>100% compatible with ArgentX wallet:</b> Accounts created using argentX account ClassHash
 - ⛽️ <b>$ETH or $STRK:</b> switch between tokens for gas
-- 🚀 <b>Unmatched Speed:</b> Execute snipes in milliseconds with Mizuri’s cutting-edge algorithms.  
-- 🎯 <b>Pinpoint Accuracy:</b> Strike with surgical precision and never miss an opportunity.  
+- 🚀 <b>Unmatched Speed:</b> 
+- 🎯 <b>Pinpoint Accuracy:</b>.  
 - 🍃 Exclusive Mizuri Pro Benefits:  
  <b>access 5 wallets premium strategy</b>
- 🤫 use code <code>premium</code> for the first 50 members
+ 🤫 use code <code>premium</code> for first 50 users
 
  How? ⚙️ Settings > 👑 Premium
 
-❓ Need assistance? Type <code>/help</code> to get started.
+❓ Need help? Type <code>/help</code> to get started.
 
-<b>═══ Your Wallets ═══</b>
+<b>═ Your Wallets ═</b>
 ` +
       user.wallets
         .map((e, i) => {
