@@ -76,7 +76,7 @@ export const inlineKeyboard = async (telegramId) => {
     [
       Markup.button.webApp(
         " Help ",
-        "https://bitrock-elitebot.gitbook.io/elitebotguide"
+        "https://google.com"
       )
       // Markup.button.callback("💰 View Settings ", "button7")
       // Markup.button.callback("🔁 Refresh ", "restart")
